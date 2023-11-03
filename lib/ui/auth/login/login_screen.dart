@@ -13,10 +13,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController(text: 'osama@route.com');
-
   var passwordController = TextEditingController(text: '123456');
-
   var formKey = GlobalKey<FormState>();
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +67,32 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextFieldItem(
                         label: 'Password',
+                        hintText: 'Enter your password',
                         controller: passwordController,
-                        isObscure: true,
-                        keyboardType: TextInputType.phone,
                         validator: (text) {
                           if (text == null || text.trim().isEmpty) {
                             return 'Please Enter Password';
                           }
-                          if (text.length < 6) {
-                            return 'Password should be at least 6 chars';
+                          if (text.trim().length < 6 || text.trim().length > 30) {
+                            return 'Password should be > 6 & < 30 ';
                           }
                           return null;
                         },
-                        hintText: '',
+                        keyboardType: TextInputType.visiblePassword,
+                        isObscure: isObscure,
+                        suffixIcon: InkWell(
+                          child: isObscure
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onTap: () {
+                            if (isObscure) {
+                              isObscure = false;
+                            } else {
+                              isObscure = true;
+                            }
+                            setState(() {});
+                          },
+                        ),
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,

@@ -25,6 +25,7 @@ class TextFieldItem extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
             fillColor: MyTheme.white,
             label: Text(
               label,
